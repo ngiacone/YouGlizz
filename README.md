@@ -1,2 +1,2 @@
-# YouGlizz
-Your Daily Dose of Glizzy Gold
+# The Best Hot Dog Content On The Web
+"Your Daily Dose of Glizzy Gold"
