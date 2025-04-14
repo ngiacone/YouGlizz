@@ -5,33 +5,71 @@
   <title>YouGlizz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; background: #fdfdfd; margin: 0; padding: 2rem; text-align: center; }
-    h1 { color: #e60023; }
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 2rem; }
-    iframe { width: 100%; height: 200px; border: none; }
-    .tagline { font-size: 1.2rem; margin-top: 0.5rem; color: #555; }
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    img.logo {
+      max-width: 250px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: #e60023;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      color: #555;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
-  <img src="youglizz.png" alt="YouGlizz Logo" style="max-width: 200px; margin-bottom: 1rem;">
+
+  <!-- Logo (make sure logo.png is uploaded to your repo root) -->
+  <img src="logo.png" alt="YouGlizz Logo" class="logo">
 
   <h1>YouGlizz</h1>
   <p class="tagline">The Best Glizzy Content on the Web</p>
 
+  <div class="video-grid" id="video-container"></div>
 
-<div class="video-grid">
-  <iframe src="https://www.youtube.com/embed/VJbCdcfPCRY" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/rH2EmY_ytf4" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/w4Hf5w2VDhg" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/sc-fF9Li1vQ" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/_LVL6DiciQw" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/ZDzH5XeAjrU" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/trZE5BF7Ras" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/QF4rR23c2s4" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/phDQC0x0sgA" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/3PMkD6rs1fI" allowfullscreen></iframe>
-</div>
+  <script>
+    fetch('videos.json')
+      .then(response => response.json())
+      .then(videoIds => {
+        const container = document.getElementById('video-container');
+        videoIds.forEach(id => {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube.com/embed/${id}`;
+          iframe.allowFullscreen = true;
+          container.appendChild(iframe);
+        });
+      });
+  </script>
 
-  </div>
 </body>
 </html>
+
