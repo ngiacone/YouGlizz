@@ -1,1 +1,33 @@
-.github/workflows/update-glizzy-feed.yml
+name: Update Glizzy Feed
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run Glizzy Scraper
+        run: python glizzy_scraper.py
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "YouGlizz Bot"
+          git config --global user.email "bot@youglizz.com"
+          git add videos.json
+          git commit -m "Update videos.json from Reddit" || echo "No changes to commit"
+          git push
+
