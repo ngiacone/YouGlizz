@@ -188,21 +188,28 @@
       : allVideos.filter(v => v.category === category);
 
     filtered.forEach(video => {
-      const iframe = document.createElement("iframe");
+      let element;
 
-      // Supports Reddit video URLs AND YouTube video IDs
-      iframe.src = video.id.startsWith("http")
-        ? video.id
-        : `https://www.youtube.com/embed/${video.id}`;
+      // Use <iframe> for YouTube, <video> for Reddit mp4 links
+      if (video.id.includes("youtube.com") || video.id.includes("youtu.be") || !video.id.includes("http")) {
+        element = document.createElement("iframe");
+        element.src = video.id.startsWith("http")
+          ? video.id
+          : `https://www.youtube.com/embed/${video.id}`;
+        element.allowFullscreen = true;
+      } else {
+        element = document.createElement("video");
+        element.src = video.id;
+        element.controls = true;
+      }
 
-      iframe.allowFullscreen = true;
-      iframe.width = "100%";
-      iframe.height = "200";
-      iframe.style.border = "none";
+      element.width = "100%";
+      element.height = "200";
+      element.style.border = "none";
+      element.style.borderRadius = "10px";
+      element.onerror = () => element.remove();
 
-      iframe.onerror = () => iframe.remove();
-
-      container.appendChild(iframe);
+      container.appendChild(element);
     });
   }
 
@@ -220,7 +227,6 @@
       console.error("Failed to load videos.json:", err);
     });
 </script>
-
 
 
   <script>
