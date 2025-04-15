@@ -72,32 +72,45 @@
         grid-template-columns: 1fr;
       }
     }
-    /* Light Theme (Default) */
-body.light {
-  background: linear-gradient(to bottom, #fff8f0, #fdfdfd);
-  color: #000;
+/* Default theme: ketchup */
+body.ketchup {
+  background: #fff8f0;
+  color: #e60023;
 }
 
-/* Dark Theme */
-body.dark {
-  background: linear-gradient(to bottom, #1a1a1a, #333);
-  color: #fff;
+.ketchup nav a {
+  color: #e60023;
+}
+.ketchup nav a:hover {
+  color: #990000;
+}
+.ketchup .tagline {
+  color: #700000;
+}
+.ketchup iframe {
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
-body.dark nav a {
-  color: #fff;
-}
-body.dark nav a:hover {
-  color: #ffcc00;
-}
-body.dark .tagline {
-  color: #ccc;
-}
-body.dark iframe {
-  box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+/* Mustard theme */
+body.mustard {
+  background: #fffbe6;
+  color: #cc9900;
 }
 
-/* Theme toggle button */
+.mustard nav a {
+  color: #cc9900;
+}
+.mustard nav a:hover {
+  color: #996600;
+}
+.mustard .tagline {
+  color: #775500;
+}
+.mustard iframe {
+  box-shadow: 0 4px 12px rgba(204, 153, 0, 0.15);
+}
+
+/* Toggle Button */
 #theme-toggle {
   position: absolute;
   top: 1rem;
@@ -111,10 +124,11 @@ body.dark iframe {
   color: #e60023;
   transition: all 0.2s ease;
 }
-body.dark #theme-toggle {
-  border-color: #ffcc00;
-  color: #ffcc00;
+body.mustard #theme-toggle {
+  border-color: #cc9900;
+  color: #cc9900;
 }
+
 
   </style>
 </head>
@@ -126,7 +140,7 @@ body.dark #theme-toggle {
     <a href="#">Submit a Glizz</a>
   </nav>
 
-  <button id="theme-toggle">Toggle Theme</button>
+  <button id="theme-toggle">Toggle Sauce</button>
 
   <img src="youglizz.png" alt="YouGlizz Logo" class="logo">
 
@@ -167,13 +181,13 @@ body.dark #theme-toggle {
   </div>
 <script>
   const toggleBtn = document.getElementById('theme-toggle');
-  const currentTheme = localStorage.getItem('theme') || 'light';
+  const currentTheme = localStorage.getItem('theme') || 'ketchup';
   document.body.classList.add(currentTheme);
 
   toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    document.body.classList.toggle('light');
-    const newTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    document.body.classList.toggle('ketchup');
+    document.body.classList.toggle('mustard');
+    const newTheme = document.body.classList.contains('mustard') ? 'mustard' : 'ketchup';
     localStorage.setItem('theme', newTheme);
   });
 </script>
