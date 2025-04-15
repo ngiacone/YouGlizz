@@ -122,29 +122,29 @@
       border-color: #5a3e00;
       color: #5a3e00;
     }
+
     #category-filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
 
-#category-filters button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: #e60023;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s;
-}
+    #category-filters button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #e60023;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
 
-#category-filters button:hover {
-  background-color: #ff3366;
-}
-
+    #category-filters button:hover {
+      background-color: #ff3366;
+    }
   </style>
 </head>
 <body>
@@ -155,63 +155,6 @@
     <a href="#">Submit a Glizz</a>
   </nav>
 
-  <button id="theme-toggle">🌭 Toggle Sauce</button>
-
-  <img src="youglizztransparent.png" alt="YouGlizz Logo" class="logo">
-
-  <h1 class="headline">Welcome to the Glizzyverse</h1>
-  <p class="tagline">The internet's most powerful hot dog curation engine.</p>
-
-  <div id="category-filters">
-  <button onclick="filterVideos('All')">All</button>
-  <button onclick="filterVideos('Street Food')">Street Food</button>
-  <button onclick="filterVideos('Gourmet')">Gourmet</button>
-  <button onclick="filterVideos('Challenges')">Challenges</button>
-  <button onclick="filterVideos('Taste Test')">Taste Test</button>
-  <button onclick="filterVideos('Regional Styles')">Regional Styles</button>
-  <button onclick="filterVideos('Chicago')">Chicago</button>
-  <button onclick="filterVideos('NYC')">NYC</button>
-  <button onclick="filterVideos('TV Clips')">TV Clips</button>
-</div>
-
-  <div class="video-grid" id="video-container"></div>
-
-  <script>
-    fetch('videos.json')
-      .then(res => res.json())
-      .then(videoIds => {
-        const container = document.getElementById('video-container');
-        videoIds.forEach(id => {
-          const iframe = document.createElement('iframe');
-          iframe.src = `https://www.youtube.com/embed/${id}`;
-          iframe.allowFullscreen = true;
-          iframe.width = "100%";
-          iframe.height = "200";
-          iframe.style.border = "none";
-
-          iframe.onerror = () => {
-            iframe.remove();
-          };
-
-          container.appendChild(iframe);
-        });
-      });
-  </script>
-
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'ketchup';
-    document.body.classList.add(currentTheme);
-
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('ketchup');
-      document.body.classList.toggle('mustard');
-      const newTheme = document.body.classList.contains('mustard') ? 'mustard' : 'ketchup';
-      localStorage.setItem('theme', newTheme);
-    });
-  </script>
-
-</body>
-</html>
+  <button id="theme-t
 
 
