@@ -176,45 +176,51 @@
 
   <div class="video-grid" id="video-container"></div>
 
-  <script>
-    let allVideos = [];
+<script>
+  let allVideos = [];
 
-    function loadVideos(category = "All") {
-      const container = document.getElementById("video-container");
-      container.innerHTML = "";
+  function loadVideos(category = "All") {
+    const container = document.getElementById("video-container");
+    container.innerHTML = "";
 
-      const filtered = category === "All"
-        ? allVideos
-        : allVideos.filter(v => v.category === category);
+    const filtered = category === "All"
+      ? allVideos
+      : allVideos.filter(v => v.category === category);
 
-      filtered.forEach(video => {
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/${video.id}`;
-        iframe.allowFullscreen = true;
-        iframe.width = "100%";
-        iframe.height = "200";
-        iframe.style.border = "none";
+    filtered.forEach(video => {
+      const iframe = document.createElement("iframe");
 
-        iframe.onerror = () => iframe.remove();
+      // Supports both YouTube IDs and full video URLs (like Reddit)
+      iframe.src = video.id.startsWith("http")
+        ? video.id
+        : `https://www.youtube.com/embed/${video.id}`;
 
-        container.appendChild(iframe);
-      });
-    }
+      iframe.allowFullscreen = true;
+      iframe.width = "100%";
+      iframe.height = "200";
+      iframe.style.border = "none";
 
-    function filterVideos(category) {
-      loadVideos(category);
-    }
+      iframe.onerror = () => iframe.remove();
 
-    fetch("videos.json")
-      .then(res => res.json())
-      .then(videos => {
-        allVideos = videos;
-        loadVideos();
-      })
-      .catch(err => {
-        console.error("Failed to load videos.json:", err);
-      });
-  </script>
+      container.appendChild(iframe);
+    });
+  }
+
+  function filterVideos(category) {
+    loadVideos(category);
+  }
+
+  fetch("videos.json")
+    .then(res => res.json())
+    .then(videos => {
+      allVideos = videos;
+      loadVideos();
+    })
+    .catch(err => {
+      console.error("Failed to load videos.json:", err);
+    });
+</script>
+
 
   <script>
     const toggleBtn = document.getElementById('theme-toggle');
