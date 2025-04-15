@@ -155,6 +155,81 @@
     <a href="#">Submit a Glizz</a>
   </nav>
 
-  <button id="theme-t
+  <button id="theme-toggle">🌭 Toggle Sauce</button>
+
+  <img src="youglizztransparent.png" alt="YouGlizz Logo" class="logo">
+
+  <h1 class="headline">Welcome to the Glizzyverse</h1>
+  <p class="tagline">The internet's most powerful hot dog curation engine.</p>
+
+  <div id="category-filters">
+    <button onclick="filterVideos('All')">All</button>
+    <button onclick="filterVideos('Street Food')">Street Food</button>
+    <button onclick="filterVideos('Gourmet')">Gourmet</button>
+    <button onclick="filterVideos('Challenges')">Challenges</button>
+    <button onclick="filterVideos('Taste Test')">Taste Test</button>
+    <button onclick="filterVideos('Regional Styles')">Regional Styles</button>
+    <button onclick="filterVideos('Chicago')">Chicago</button>
+    <button onclick="filterVideos('NYC')">NYC</button>
+    <button onclick="filterVideos('TV Clips')">TV Clips</button>
+  </div>
+
+  <div class="video-grid" id="video-container"></div>
+
+  <script>
+    let allVideos = [];
+
+    function loadVideos(category = "All") {
+      const container = document.getElementById("video-container");
+      container.innerHTML = "";
+
+      const filtered = category === "All"
+        ? allVideos
+        : allVideos.filter(v => v.category === category);
+
+      filtered.forEach(video => {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/${video.id}`;
+        iframe.allowFullscreen = true;
+        iframe.width = "100%";
+        iframe.height = "200";
+        iframe.style.border = "none";
+
+        iframe.onerror = () => iframe.remove();
+
+        container.appendChild(iframe);
+      });
+    }
+
+    function filterVideos(category) {
+      loadVideos(category);
+    }
+
+    fetch("videos.json")
+      .then(res => res.json())
+      .then(videos => {
+        allVideos = videos;
+        loadVideos();
+      })
+      .catch(err => {
+        console.error("Failed to load videos.json:", err);
+      });
+  </script>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'ketchup';
+    document.body.classList.add(currentTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('ketchup');
+      document.body.classList.toggle('mustard');
+      const newTheme = document.body.classList.contains('mustard') ? 'mustard' : 'ketchup';
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+
+</body>
+</html>
 
 
