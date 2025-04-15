@@ -122,6 +122,29 @@
       border-color: #5a3e00;
       color: #5a3e00;
     }
+    #category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#category-filters button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #e60023;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+#category-filters button:hover {
+  background-color: #ff3366;
+}
+
   </style>
 </head>
 <body>
@@ -138,6 +161,18 @@
 
   <h1 class="headline">Welcome to the Glizzyverse</h1>
   <p class="tagline">The internet's most powerful hot dog curation engine.</p>
+
+  <div id="category-filters">
+  <button onclick="filterVideos('All')">All</button>
+  <button onclick="filterVideos('Street Food')">Street Food</button>
+  <button onclick="filterVideos('Gourmet')">Gourmet</button>
+  <button onclick="filterVideos('Challenges')">Challenges</button>
+  <button onclick="filterVideos('Taste Test')">Taste Test</button>
+  <button onclick="filterVideos('Regional Styles')">Regional Styles</button>
+  <button onclick="filterVideos('Chicago')">Chicago</button>
+  <button onclick="filterVideos('NYC')">NYC</button>
+  <button onclick="filterVideos('TV Clips')">TV Clips</button>
+</div>
 
   <div class="video-grid" id="video-container"></div>
 
