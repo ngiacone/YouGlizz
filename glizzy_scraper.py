@@ -22,14 +22,35 @@ for sub in subs:
             if video_url.endswith(".mp4"):
                 videos.append({
                     "id": video_url,
+                    "source": "reddit",
                     "category": sub.capitalize()
                 })
 
-# ONLY overwrite the file if we found valid videos
-if videos:
-    with open("videos.json", "w") as f:
-        json.dump(videos[:20], f, indent=2)
-    print(f"✅ Wrote {len(videos)} Reddit videos to videos.json")
-else:
-    print("⚠️ No Reddit videos found — videos.json not updated.")
+# Load existing YouTube videos (if available)
+try:
+    with open("videos.json", "r") as f:
+        existing = json.load(f)
+except FileNotFoundError:
+    existing = []
+
+# Append original YouTube list (only YouTube entries)
+youtube_videos = [v for v in existing if v.get("source") == "youtube"]
+
+# Combine with new Reddit videos
+combined = videos[:30] + youtube_videos[:30]
+
+# Deduplicate by video ID
+seen = set()
+unique = []
+for vid in combined:
+    if vid["id"] not in seen:
+        unique.append(vid)
+        seen.add(vid["id"])
+
+# Save final list (max 50)
+with open("videos.json", "w") as f:
+    json.dump(unique[:50], f, indent=2)
+
+print(f"✅ Wrote {len(unique[:50])} total videos (Reddit + YouTube) to videos.json")
+
 
