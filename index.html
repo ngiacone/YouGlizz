@@ -190,7 +190,7 @@
     filtered.forEach(video => {
       const iframe = document.createElement("iframe");
 
-      // Supports both YouTube IDs and full video URLs (like Reddit)
+      // Supports Reddit video URLs AND YouTube video IDs
       iframe.src = video.id.startsWith("http")
         ? video.id
         : `https://www.youtube.com/embed/${video.id}`;
@@ -220,6 +220,7 @@
       console.error("Failed to load videos.json:", err);
     });
 </script>
+
 
 
   <script>
