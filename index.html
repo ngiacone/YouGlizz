@@ -190,17 +190,19 @@
     filtered.forEach(video => {
       let element;
 
-      // Use <iframe> for YouTube, <video> for Reddit mp4 links
-      if (video.id.includes("youtube.com") || video.id.includes("youtu.be") || !video.id.includes("http")) {
-        element = document.createElement("iframe");
-        element.src = video.id.startsWith("http")
-          ? video.id
-          : `https://www.youtube.com/embed/${video.id}`;
-        element.allowFullscreen = true;
-      } else {
+      if (
+        video.source === "reddit" ||
+        (video.id.startsWith("http") && video.id.endsWith(".mp4"))
+      ) {
+        // Reddit direct .mp4
         element = document.createElement("video");
         element.src = video.id;
         element.controls = true;
+      } else {
+        // YouTube iframe
+        element = document.createElement("iframe");
+        element.src = `https://www.youtube.com/embed/${video.id}`;
+        element.allowFullscreen = true;
       }
 
       element.width = "100%";
@@ -227,6 +229,7 @@
       console.error("Failed to load videos.json:", err);
     });
 </script>
+
 
 
 
