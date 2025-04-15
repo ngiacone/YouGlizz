@@ -70,14 +70,18 @@
       display: block;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
+    h1.headline {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #e60023;
     }
 
     .tagline {
       font-size: 1.2rem;
-      margin-top: 0.5rem;
+      color: #555;
+      font-style: italic;
     }
 
     .video-grid {
@@ -101,38 +105,23 @@
       }
     }
 
-  #theme-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: 2px solid currentColor;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s ease;
-  color: inherit;
-}
+    #theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 2px solid #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      transition: all 0.2s ease;
+    }
     body.mustard #theme-toggle {
       border-color: #5a3e00;
       color: #5a3e00;
     }
-    
-.headline {
-  font-size: 2.8rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
-  color: #e60023;
-}
-
-.tagline {
-  font-size: 1.2rem;
-  color: #555;
-  font-style: italic;
-}
-
   </style>
 </head>
 <body>
@@ -147,33 +136,32 @@
 
   <img src="youglizztransparent.png" alt="YouGlizz Logo" class="logo">
 
-  <h1 class="headline">Welcome to the Glizzyverse</h1>
-<p class="tagline">The internet's most powerful hot dog curation engine.</p>
+  <h1 class="headline">Welcome to the Glizzverse</h1>
+  <p class="tagline">The internet's most powerful hot dog curation engine.</p>
 
- <div class="video-grid">
-  <iframe src="https://www.youtube.com/embed/rH2EmY_ytf4" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/VJbCdcfPCRY" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/w4Hf5w2VDhg" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/sc-fF9Li1vQ" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/ZDzH5XeAjrU" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/trZE5BF7Ras" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/QF4rR23c2s4" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/PAo7RAnRkDg" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/4FqI0NoGQfY" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/6R8n6FbXVc8" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/8A37yTaHeEU" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/Yv_nPcvVyDA" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/gqaPuWvPe4Q" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/UI4u-mA7I18" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/guKd5dy00PY" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/r2cuNiPSJ9o" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/FnzoOwpyA-0" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/2GZrPR5Ajrs" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/1gU8aQ3Y8bQ" allowfullscreen></iframe>
-  <iframe src="https://www.youtube.com/embed/5jJ3a4Z5i8Y" allowfullscreen></iframe>
-</div>
+  <div class="video-grid" id="video-container"></div>
 
+  <script>
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(videoIds => {
+        const container = document.getElementById('video-container');
+        videoIds.forEach(id => {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube.com/embed/${id}`;
+          iframe.allowFullscreen = true;
+          iframe.width = "100%";
+          iframe.height = "200";
+          iframe.style.border = "none";
 
+          iframe.onerror = () => {
+            iframe.remove();
+          };
+
+          container.appendChild(iframe);
+        });
+      });
+  </script>
 
   <script>
     const toggleBtn = document.getElementById('theme-toggle');
@@ -190,6 +178,5 @@
 
 </body>
 </html>
-
 
 
