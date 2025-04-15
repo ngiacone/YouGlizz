@@ -9,10 +9,45 @@
   <style>
     body {
       font-family: sans-serif;
-      background: linear-gradient(to bottom, #fff8f0, #fdfdfd);
       margin: 0;
       padding: 2rem;
       text-align: center;
+    }
+
+    body.ketchup {
+      background: #e60023;
+      color: #fff;
+    }
+
+    .ketchup nav a {
+      color: #fff;
+    }
+    .ketchup nav a:hover {
+      color: #ffcccc;
+    }
+    .ketchup .tagline {
+      color: #ffd9d9;
+    }
+    .ketchup iframe {
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+
+    body.mustard {
+      background: #f9e06e;
+      color: #5a3e00;
+    }
+
+    .mustard nav a {
+      color: #5a3e00;
+    }
+    .mustard nav a:hover {
+      color: #3e2b00;
+    }
+    .mustard .tagline {
+      color: #4b3800;
+    }
+    .mustard iframe {
+      box-shadow: 0 4px 12px rgba(90, 62, 0, 0.15);
     }
 
     nav {
@@ -24,14 +59,9 @@
 
     nav a {
       text-decoration: none;
-      color: #e60023;
       font-weight: bold;
       font-size: 1.1rem;
       transition: color 0.2s ease;
-    }
-
-    nav a:hover {
-      color: #ff9900;
     }
 
     img.logo {
@@ -41,7 +71,6 @@
     }
 
     h1 {
-      color: #e60023;
       margin: 0;
       font-size: 2.5rem;
     }
@@ -49,7 +78,6 @@
     .tagline {
       font-size: 1.2rem;
       margin-top: 0.5rem;
-      color: #555;
     }
 
     .video-grid {
@@ -72,67 +100,27 @@
         grid-template-columns: 1fr;
       }
     }
-/* Default theme: ketchup */
-body.ketchup {
-  background: #fff8f0;
-  color: #e60023;
-}
 
-.ketchup nav a {
-  color: #e60023;
-}
-.ketchup nav a:hover {
-  color: #990000;
-}
-.ketchup .tagline {
-  color: #700000;
-}
-.ketchup iframe {
-  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
-}
-
-/* Mustard theme */
-body.mustard {
-  background: #fffbe6;
-  color: #cc9900;
-}
-
-.mustard nav a {
-  color: #cc9900;
-}
-.mustard nav a:hover {
-  color: #996600;
-}
-.mustard .tagline {
-  color: #775500;
-}
-.mustard iframe {
-  box-shadow: 0 4px 12px rgba(204, 153, 0, 0.15);
-}
-
-/* Toggle Button */
-#theme-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: 2px solid #e60023;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #e60023;
-  transition: all 0.2s ease;
-}
-body.mustard #theme-toggle {
-  border-color: #cc9900;
-  color: #cc9900;
-}
-
-
+    #theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 2px solid #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    body.mustard #theme-toggle {
+      border-color: #5a3e00;
+      color: #5a3e00;
+    }
   </style>
 </head>
-<body>
+<body class="ketchup">
 
   <nav>
     <a href="#">Home</a>
@@ -140,9 +128,9 @@ body.mustard #theme-toggle {
     <a href="#">Submit a Glizz</a>
   </nav>
 
-  <button id="theme-toggle">Toggle Sauce</button>
+  <button id="theme-toggle">🌭 Toggle Sauce</button>
 
-  <img src="youglizz.png" alt="YouGlizz Logo" class="logo">
+  <img src="logo.png" alt="YouGlizz Logo" class="logo">
 
   <h1>YouGlizz</h1>
   <p class="tagline">The Best Glizzy Content on the Web</p>
@@ -179,20 +167,22 @@ body.mustard #theme-toggle {
     <iframe src="https://www.youtube.com/embed/6hH6g6Z6g6g" allowfullscreen></iframe>
     <iframe src="https://www.youtube.com/embed/4hH4g4Z4g4g" allowfullscreen></iframe>
   </div>
-<script>
-  const toggleBtn = document.getElementById('theme-toggle');
-  const currentTheme = localStorage.getItem('theme') || 'ketchup';
-  document.body.classList.add(currentTheme);
 
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('ketchup');
-    document.body.classList.toggle('mustard');
-    const newTheme = document.body.classList.contains('mustard') ? 'mustard' : 'ketchup';
-    localStorage.setItem('theme', newTheme);
-  });
-</script>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'ketchup';
+    document.body.classList.add(currentTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('ketchup');
+      document.body.classList.toggle('mustard');
+      const newTheme = document.body.classList.contains('mustard') ? 'mustard' : 'ketchup';
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
 
 </body>
 </html>
+
 
 
