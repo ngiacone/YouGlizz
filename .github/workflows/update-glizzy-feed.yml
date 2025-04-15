@@ -9,8 +9,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,10 +25,15 @@ jobs:
       - name: Run Glizzy Scraper
         run: python glizzy_scraper.py
 
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update videos.json from Reddit"
-          file_pattern: videos.json
+      - name: Commit and push
+        run: |
+          git config user.name "YouGlizz Bot"
+          git config user.email "bot@youglizz.com"
+          git add videos.json
+          git commit -m "Auto-update videos.json from Reddit" || echo "No changes"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
