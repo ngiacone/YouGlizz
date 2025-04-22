@@ -3,13 +3,14 @@ import json
 
 subs = ["hotdogs", "fastfood", "foodporn", "streetfood", "grilling"]
 headers = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 }
+
 videos = []
 
 for sub in subs:
-    url = f"https://www.reddit.com/r/{sub}/top.json?limit=20&t=week"
+    url = f"https://api.redditproxy.com/r/{sub}/top.json?limit=20&t=week"
     res = requests.get(url, headers=headers)
 
     if res.status_code != 200:
@@ -36,13 +37,11 @@ try:
 except FileNotFoundError:
     existing = []
 
-# Append original YouTube list (only YouTube entries)
+# Keep YouTube videos only
 youtube_videos = [v for v in existing if v.get("source") == "youtube"]
 
-# Combine with new Reddit videos
+# Combine and deduplicate
 combined = videos[:30] + youtube_videos[:30]
-
-# Deduplicate by video ID
 seen = set()
 unique = []
 for vid in combined:
@@ -52,8 +51,7 @@ for vid in combined:
 
 # Save final list (max 50)
 with open("videos.json", "w") as f:
-    json.dump(unique[:50], f, indent=2)
+    json.dump(unique[:50],
 
-print(f"✅ Wrote {len(unique[:50])} total videos (Reddit + YouTube) to videos.json")
 
 
